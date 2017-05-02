@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+    <title>Booking</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <script src="angular.min.js"></script>
+    <script src="angular-resource.min.js"></script>
+    <link rel="icon" type="image/png" href="/image/booking.png" />
+ 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+  <!-- ------------------------------------------------------------------------------------------------------------------------- -->
+  <!-- Include Required Prerequisites -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/3/css/bootstrap.css" />
+   
+  <!-- Include Date Range Picker -->
+  <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+  <script src="sweetalert2.min.js"></script>
+<link rel="stylesheet" href="sweetalert2.min.css">
+<link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet">
+
+<!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
+  <!-- ------------------------------------------------------------------------------------------------------------------------- -->
+
+  <style type="text/css">
+        
+        body {
+          background-color: #33D1FF
+        }
+        h1 {
+          background-color: #FF9999
+        }
+        .bg-1 { 
+          background-color: #1abc9c; /* Green */
+          color: #E1F5FE;
+        }
+        .imgmember {
+          width: 500px;
+          height: 400px;
+          border-radius: 50%;
+        }
+  </style>
+</head>
+<!-- ------------------------------------------------------------------------------------------------------------------------- -->
+
+
+</head>
+<div class="container">
+  <h2>Booking Classroom</h2>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+    <li><a data-toggle="tab" href="#menu1">Profile</a></li>
+    <li><a data-toggle="tab" href="#menu2">Classroom</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+    <h3>Booking Classroom Members</h3>
+    <br/>
+    <center>
+      <img src="image/kiitar.jpg"/ class="imgmember"><br/>
+      <p style="font-size: 30px; padding-top:20px; font-family: 'Prompt', sans-serif;" >นายจักรี ทองแท้ 5635512028</p>
+      <br/><br/><br/>
+      <img src="image/hong.jpg"/ class="imgmember"><br/>
+      <p style="font-size: 30px; padding-top:20px; font-family: 'Prompt', sans-serif;" >นายธรรมนูญ แก้วล้อมวัน 5635512040</p>
+      <br/><br/><br/>
+      <img src="image/nan.jpg"/ class="imgmember"><br/>
+      <p style="font-size: 30px; padding-top:20px; font-family: 'Prompt', sans-serif;" >นางสาวปัญญาพร จันทร์พัฒน์ 5635512081</p>
+      <br/><br/><br/>
+      <img src="image/fern.jpg"/ class="imgmember"><br/>
+      <p style="font-size: 30px; padding-top:20px; font-family: 'Prompt', sans-serif;" >นางสาวณิชารีย์ โชติวิริยกุล 5635512084</p>
+      <br/><br/><br/><br/><br/><br/>
+    </center>
+    </div>
+
+<!-- -------------------------------------------------------manu1------------------------------------------------------------------ -->
+
+    <div id="menu1" class="tab-pane fade">
+        <h3>Login As :</h3>
+        <% history.forEach(function(his){ %>
+          <!-- Session ID : <%= his.session_id %> --> <br/>
+          User : <%= his.username %> <br/>
+          <ul>
+            <% his.time.forEach(function(t){ %>
+              <li>Time : <%= t %> </li>
+            <% }); %>
+          </ul>
+        <% }); %>
+ 
+    </div>
+<!-- ---------------------------------------------------------manu2---------------------------------------------------------------- -->
+    <div id="menu2" class="tab-pane fade">
+      <body ng-app="FamApp">
+        <div ng-controller="MainController">           
+              <table class="table table-striped">
+                <thead>
+                  <tr> <!-- table row -->
+                    <th>ID</th>
+                    <th>StudentID</th>
+                    <th>Name</th>
+                    <th>Room</th>
+                    <th>Start Date/Time - End Date/Time</th>
+                    <th>Teacher</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr ng-repeat="project in projects" ng-if="!isEmpty(project)">
+                    <td>{{ $index+1 }}</td>
+                    <td>{{ project.StudentID }}</td>
+                    <td>{{ project.Name }}</td>
+                    <td>{{ project.Room }}</td>
+                    <td>{{ project.Date }}</td>
+                    <td>{{ project.Teacher }}</td>
+                    <td>{{ project.Details }}</td>
+                    <td><button ng-click="edit(project.id)" class="btn btn-primary">Edit</button></td>
+                    <td><button ng-click="delete(project.id)" class="btn btn-danger">Delete</button></td>
+
+                  </tr>
+                </tbody>
+              </table>
+<!-- ---------------------------------------------------------New Booking---------------------------------------------------------------- -->
+              <hr>
+        <div class="col col-md-6">
+          <h2>New Booking</h2>
+           <form>
+            <div class="form-group">
+              <label for="">StudentID</label>
+              <input style="width:300px" type="hidden" class="form-control" ng-model="idx">
+              <input id="estudent" ng-click="showstudent()" style="width:300px" type="text" class="form-control" placeholder="StudentID" ng-model="project.StudentID" ng-init="project.message=''">
+            </div>
+            <div class="form-group">
+              <label for="">Name</label>
+              <input id="ename" ng-click="showname()" style="width:300px" type="text" class="form-control" placeholder="Name" ng-model="project.Name">
+            </div>
+            <div class="form-group">
+              <label for="">Room</label>
+              <input id="eroom" ng-click="showroom()" style="width:300px" type="text" class="form-control" placeholder="Room" ng-model="project.Room">
+            </div>
+            <div class="form-group">
+              <label for="">Date/Time</label>
+              <input id="edate" ng-click="showdate()" style="width:300px" type="text" class="form-control" placeholder="Date" ng-model="project.Date" name="daterange"/>
+            </div>
+            <div class="form-group">
+              <label for="">Teacher</label>
+              <input id="eteacher" ng-click="showteacher()" style="width:300px" type="text" class="form-control" placeholder="Teacher" ng-model="project.Teacher">
+            </div>
+            <div class="form-group">
+              <label for="">Details</label>
+              <input id="edetails" ng-click="showdetails()" style="width:300px" type="text" class="form-control" placeholder="Details" ng-model="project.Details">
+            </div>  
+  
+            <button type="submit" class="btn btn-success" ng-click="add()">Submit</button>
+          </form>
+        </div>
+<!-- ---------------------------------------------------------Edit Booking---------------------------------------------------------------- -->
+        <div class="col col-md-6">
+          <h2>Edit Booking</h2>
+          <form>
+            <div class="form-group">
+              <label for="">StudentID</label>
+              <input style="width:300px" type="hidden" class="form-control" ng-model="Editproject.id">
+              <input id="lstudent" ng-click="editstudent()" style="width:300px" type="text" class="form-control" placeholder="StudentID" ng-model="Editproject.StudentID" ng-init="Editproject.message=''">
+            </div>
+            <div class="form-group">
+              <label for="">Name</label>
+              <input id="lname" ng-click="editname()" style="width:300px" type="text" class="form-control" placeholder="Name" ng-model="Editproject.Name">
+            </div>
+            <div class="form-group">
+              <label for="">Room</label>
+              <input id="lroom" ng-click="editroom()" style="width:300px" type="text" class="form-control" placeholder="Room" ng-model="Editproject.Room">
+            </div>
+            <div class="form-group">
+              <label for="">Date/Time</label>
+              <input id="edate" ng-click="showdate()" style="width:300px" type="text" class="form-control" placeholder="Date" ng-model="Editproject.Date" name="daterange"/>
+            </div>
+            <div class="form-group">
+              <label for="">Teacher</label>
+              <input id="lteacher" ng-click="editteacher()" style="width:300px" type="text" class="form-control" placeholder="Teacher" ng-model="Editproject.Teacher">
+            </div>
+             <div class="form-group">
+              <label for="">Details</label>
+              <input id="ldetails" ng-click="editdetails()" style="width:300px" type="text" class="form-control" placeholder="Details" ng-model="Editproject.Details">
+            </div>
+            <button type="submit" class="btn btn-success" ng-click="update(Editproject.id)">Edit</button>
+          </form>
+          <br><br><br><br><br><br><br><br>
+        </div>
+      </div>
+<!-- ------------------------------------------------------------------------------------------------------------------------- -->
+    </div>
+       
+  </div>
+ </body>
+
+ <script type="text/javascript" src="/script/values.js"></script>
+<!-- ------------------------------------------------------------------------------------------------------------------------- -->
+
+</html>
